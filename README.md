@@ -120,3 +120,8 @@ npm run dist-win     # → front/release/
 ## 📄 License
 
 See the repository for license details.
+
+
+## Contributing and CI
+
+Changes to the default branch require a pull request and passing CI. See [the branch protection and CI policy](docs/ci.md).
