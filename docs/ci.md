@@ -20,4 +20,6 @@ git push -u origin feature/your-change
 
 每次 v* 版本标签先通过同一提交的源码 CI，再在 Windows amd64、macOS arm64 和 macOS amd64 原生 Runner 上构建对应的后端和安装包，执行实际打包的 Electron 应用，验证初始化与数据库持久化；macOS 同时验证 DMG。Tag 必须与应用版本一致，三个原生平台全部通过 Release CI 后才由唯一发布 job 上传同一批候选安装包。任一失败、取消或跳过均阻止发布，避免部分平台先产生公开发行。手动 release 工作流只验收和保存 Actions 制品，不创建公开发行。没有定时任务。
 
+打包器固定为 electron-builder 26.0.12，使用上游统一的 hdiutil 有限重试处理 macOS 磁盘镜像卸载时的短暂占用。原来的 23.6.0 在 Intel Runner 上重复遇到 resource busy；升级同时作用于本地与 CI 打包命令，仍要求实际 DMG 生成、校验和应用运行通过。
+
 CI 失败会阻止合并。修复失败后在同一个功能分支继续提交，重新运行检查；不要通过删除必需检查或设置管理员绕过来把失败当作通过。
